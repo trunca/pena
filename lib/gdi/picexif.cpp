@@ -2,7 +2,6 @@
 #include <lib/base/eerror.h>
 #include <lib/gdi/picexif.h>
 #define PNG_SKIP_SETJMP_CHECK
-#define PNG_sRGB_PROFILE_CHECKS -1
 #include <png.h>
 
 #define M_SOF0  0xC0
