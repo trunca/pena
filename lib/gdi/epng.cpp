@@ -1,4 +1,5 @@
 #define PNG_SKIP_SETJMP_CHECK
+#define PNG_sRGB_PROFILE_CHECKS -1
 #include <zlib.h>
 #include <png.h>
 #include <stdio.h>
