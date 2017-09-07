@@ -1,5 +1,4 @@
 #define PNG_SKIP_SETJMP_CHECK
-#define PNG_sRGB_PROFILE_CHECKS -1
 #include <png.h>
 #include <fcntl.h>
 
