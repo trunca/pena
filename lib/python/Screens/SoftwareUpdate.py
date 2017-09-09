@@ -12,7 +12,7 @@ from Components.Sources.StaticText import StaticText
 from Components.Slider import Slider
 from Tools.BoundFunction import boundFunction
 from enigma import eTimer, eDVBDB
-from boxbranding import getBoxType, getImageVersion, getMachineBuild
+from boxbranding import getBoxType, getImageVersion, getMachineBuild, getImageType
 from Tools.Directories import fileExists
 from urllib2 import urlopen
 import socket
@@ -81,10 +81,11 @@ class UpdatePlugin(Screen, ProtectedScreen):
 		message = ""
 		picon = None
 		default = True
+		url = "http://images.teamblue.tech/status/%s-%s/" % (getImageVersion(), getImageType())
+		# print "[SoftwareUpdate] url status: ", url
 		try:
 			# TODO: Use Twisted's URL fetcher, urlopen is evil. And it can
 			# run in parallel to the package update.
-			url = "http://images.teamblue.tech/status/%s/" % (getImageVersion())
 			try:
 				status = urlopen(url, timeout=5).read().split('!', 1)
 				print status
@@ -136,12 +137,13 @@ If you discover 'bugs' please keep them reported on www.teamblue.tech.\n\nDo you
 	def getLatestImageTimestamp(self):
 		currentTimeoutDefault = socket.getdefaulttimeout()
 		socket.setdefaulttimeout(3)
+		url = "http://images.teamblue.tech/status/%s-%s/buildtimestamp-%s" % (getImageVersion(), getImageType(), getBoxType())
+		# print "[SoftwareUpdate] url buildtimestamp: ", url
 		try:
 			# TODO: Use Twisted's URL fetcher, urlopen is evil. And it can
 			# run in parallel to the package update.
 			from time import strftime
 			from datetime import datetime
-			url = "http://images.teamblue.tech/%s/%s/build-timestamp" % (getImageVersion(), getBoxType())
 			try:
 				latestImageTimestamp = datetime.fromtimestamp(int(urlopen(url, timeout=5).read())).strftime(_("%Y-%m-%d %H:%M"))
 			except:
