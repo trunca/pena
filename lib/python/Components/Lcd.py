@@ -97,8 +97,8 @@ def InitLcd():
 
 			config.lcd.modepip = ConfigSelection(choices={
 					"0": _("off"),
-					"5": _("PIP"),
-					"7": _("PIP with OSD")},
+					"4": _("PIP"),
+					"6": _("PIP with OSD")},
 					default = "0")
 			if getBoxType() in ('gbquad4k', 'gbue4k', 'gbquad', 'gbquadplus'):
 				config.lcd.modepip.addNotifier(setLCDModePiP)
@@ -114,7 +114,7 @@ def InitLcd():
 						"0": _("normal"),
 						"1": _("MiniTV - video0"),
 						"2": _("OSD - fb"),
-						"3": _("MiniTV with OSD - vide0+fb"),
+						"3": _("MiniTV with OSD - video0+fb"),
 						"4": _("MiniTV - video1"),
 						"5": _("MiniTV - video0+video1"),
 						"6": _("MiniTV with OSD - video1+fb"),
@@ -125,7 +125,7 @@ def InitLcd():
 						"0": _("normal"),
 						"1": _("MiniTV - video0"),
 						"2": _("OSD - fb"),
-						"3": _("MiniTV with OSD - vide0+fb")},
+						"3": _("MiniTV with OSD - video0+fb")},
 						default = "0") 
 			config.lcd.fpsminitv = ConfigSlider(default=30, limits=(0, 30))
 			config.lcd.modeminitv.addNotifier(setLCDModeMinitTV)
