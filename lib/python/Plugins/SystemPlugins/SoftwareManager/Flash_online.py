@@ -64,12 +64,12 @@ class FlashOnline(Screen):
 		Screen.__init__(self, session)
 		self.session = session
 		self.selection = 0
-		self.devrootfs = "/dev/mmcblk0p3"
+		self.devrootfs = "/dev/mmcblk0p4"
 		self.multi = 1
 		self.list = self.list_files("/boot")
 
 		Screen.setTitle(self, _("Flash On the Fly"))
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			self["key_yellow"] = Button(_("STARTUP"))
 		else:
 			self["key_yellow"] = Button("")
@@ -87,10 +87,10 @@ class FlashOnline(Screen):
 			"red": self.quit,
 			"cancel": self.quit,
 		}, -2)
-		if SystemInfo["HasMultiBoot"]:
-			self.multi = self.read_startup("/boot/" + self.list[self.selection]).split(".",1)[1].split(" ",1)[0]
+		if SystemInfo["HasMultiBootGB"]:
+			self.multi = self.read_startup("/boot/" + self.list[self.selection]).split(".",1)[1].split(":",1)[0]
 			self.multi = self.multi[-1:]
-			print "[Flash Online] MULTI:",self.multi
+		 print "[Flash Online] MULTI:",self.multi
 
 	def check_hdd(self):
 		if not os.path.exists("/media/hdd"):
@@ -136,12 +136,12 @@ class FlashOnline(Screen):
 			self.close()
 
 	def yellow(self):
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			self.selection = self.selection + 1
 			if self.selection == len(self.list):
 				self.selection = 0
 			self["key_yellow"].setText(_(self.list[self.selection]))
-			self.multi = self.read_startup("/boot/" + self.list[self.selection]).split(".",1)[1].split(" ",1)[0]
+			self.multi = self.read_startup("/boot/" + self.list[self.selection]).split(".",1)[1].split(":",1)[0]
 			self.multi = self.multi[-1:]
 			print "[Flash Online] MULTI:",self.multi
 			cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",3)[3].split(" ",1)[0]
@@ -157,20 +157,21 @@ class FlashOnline(Screen):
 
 	def list_files(self, PATH):
 		files = []
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			path = PATH
 			for name in os.listdir(path):
 				if name != 'bootname' and os.path.isfile(os.path.join(path, name)):
 					try:
-						cmdline = self.read_startup("/boot/" + name).split("=",3)[3].split(" ",1)[0]
+						cmdline = self.read_startup("/boot/" + name).split("=",1)[1].split(" ",1)[0]
 					except IndexError:
 						continue
-					cmdline_startup = self.read_startup("/boot/STARTUP").split("=",3)[3].split(" ",1)[0]
+					cmdline_startup = self.read_startup("/boot/STARTUP").split("=",1)[1].split(" ",1)[0]
 					if (cmdline != cmdline_startup) and (name != "STARTUP"):
 						files.append(name)
 			files.insert(0,"STARTUP")
 		else:
 			files = "None"
+
 		return files
 
 class doFlashImage(Screen):
@@ -313,7 +314,7 @@ class doFlashImage(Screen):
 			text = _("Flashing: ")
 			if self.simulate:
 				text += _("Simulate (no write)")
-				if SystemInfo["HasMultiBoot"]:
+				if SystemInfo["HasMultiBootGB"]:
 					cmdlist.append("%s -n -r -k -m%s %s > /dev/null 2>&1" % (ofgwritePath, self.multi, flashTmp))
 				else:
 					cmdlist.append("%s -n -r -k %s > /dev/null 2>&1" % (ofgwritePath, flashTmp))
@@ -323,7 +324,7 @@ class doFlashImage(Screen):
 				message += "'"
 			else:
 				text += _("root and kernel")
-				if SystemInfo["HasMultiBoot"]:
+				if SystemInfo["HasMultiBootGB"]:
 					if not self.List == "STARTUP":
 						os.system('mkfs.ext4 -F ' + self.devrootfs)
 					cmdlist.append("%s -r -k -m%s %s > /dev/null 2>&1" % (ofgwritePath, self.multi, flashTmp))
@@ -333,7 +334,7 @@ class doFlashImage(Screen):
 				else:
 					cmdlist.append("%s -r -k %s > /dev/null 2>&1" % (ofgwritePath, flashTmp))
 				message = "echo -e '\n"
-				if not self.List == "STARTUP" and SystemInfo["HasMultiBoot"]:
+				if not self.List == "STARTUP" and SystemInfo["HasMultiBootGB"]:
 					message += _('ofgwrite flashing ready.\n')
 					message += _('please press exit to go back to the menu.\n')
 				else:
