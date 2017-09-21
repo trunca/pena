@@ -90,7 +90,7 @@ class FlashOnline(Screen):
 		if SystemInfo["HasMultiBootGB"]:
 			self.multi = self.read_startup("/boot/" + self.list[self.selection]).split(".",1)[1].split(":",1)[0]
 			self.multi = self.multi[-1:]
-		 print "[Flash Online] MULTI:",self.multi
+		print "[Flash Online] MULTI:",self.multi
 
 	def check_hdd(self):
 		if not os.path.exists("/media/hdd"):
@@ -329,8 +329,8 @@ class doFlashImage(Screen):
 						os.system('mkfs.ext4 -F ' + self.devrootfs)
 					cmdlist.append("%s -r -k -m%s %s > /dev/null 2>&1" % (ofgwritePath, self.multi, flashTmp))
 					if not self.List == "STARTUP":
-						cmdlist.append("umount -fl /oldroot_bind")
-						cmdlist.append("umount -fl /newroot")
+						cmdlist.append("umount -fl /oldroot_bind > /dev/null 2>&1")
+						cmdlist.append("umount -fl /newroot > /dev/null 2>&1")
 				else:
 					cmdlist.append("%s -r -k %s > /dev/null 2>&1" % (ofgwritePath, flashTmp))
 				message = "echo -e '\n"
