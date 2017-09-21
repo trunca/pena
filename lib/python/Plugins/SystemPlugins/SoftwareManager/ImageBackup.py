@@ -5,6 +5,7 @@ from Components.SystemInfo import SystemInfo
 from Components.Label import Label
 from Components.ActionMap import ActionMap
 from Components.About import about
+from Components import Harddisk
 from Screens.Console import Console
 from Screens.MessageBox import MessageBox
 from time import time, strftime, localtime
@@ -74,7 +75,7 @@ class ImageBackup(Screen):
 		self["key_green"] = Button("USB")
 		self["key_red"] = Button("HDD")
 		self["key_blue"] = Button(_("Exit"))
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			self["key_yellow"] = Button(_("STARTUP"))
 			self["info-multi"] = Label(_("You can select with yellow the OnlineFlash Image\n or select Recovery to create a USB Disk Image for clean Install."))
 		else:
@@ -126,15 +127,15 @@ class ImageBackup(Screen):
 				self.doFullBackup(USB_DEVICE)
 
 	def yellow(self):
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			self.selection = self.selection + 1
 			if self.selection == len(self.list):
 				self.selection = 0
 			self["key_yellow"].setText(_(self.list[self.selection]))
 			if self.list[self.selection] == "Recovery":
-				cmdline = self.read_startup("/boot/STARTUP").split("=",3)[3].split(" ",1)[0]
+				cmdline = self.read_startup("/boot/cmdline.txt").split("=",1)[1].split(" ",1)[0]
 			else:
-				cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",3)[3].split(" ",1)[0]
+				cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",1)[1].split(" ",1)[0]
 			cmdline = cmdline.lstrip("/dev/")
 			self.MTDROOTFS = cmdline
 			self.MTDKERNEL = cmdline[:-1] + str(int(cmdline[-1:]) -1)
@@ -150,11 +151,11 @@ class ImageBackup(Screen):
 
 	def list_files(self, PATH):
 		files = []
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			self.path = PATH
 			for name in listdir(self.path):
 				if path.isfile(path.join(self.path, name)):
-					cmdline = self.read_startup("/boot/" + name).split("=",3)[3].split(" ",1)[0]
+					cmdline = self.read_startup("/boot/" + name).split("=",1)[1].split(" ",1)[0]
 					if cmdline in Harddisk.getextdevices("ext4"):
 						files.append(name)
 			files.append("Recovery")
@@ -179,7 +180,7 @@ class ImageBackup(Screen):
 		self.IMAGEVERSION = self.imageInfo()
 		if "ubi" in self.ROOTFSTYPE.split():
 			self.MKFS = "/usr/sbin/mkfs.ubifs"
-		elif "tar.bz2" in self.ROOTFSTYPE.split() or SystemInfo["HasMultiBoot"]:
+		elif "tar.bz2" in self.ROOTFSTYPE.split() or SystemInfo["HasMultiBootGB"]:
 			self.MKFS = "/bin/tar"
 			self.BZIP2 = "/usr/bin/bzip2"
 		else:
@@ -220,7 +221,7 @@ class ImageBackup(Screen):
 		elif SystemInfo["HasMultiBoot"] and self.list[self.selection] == "Recovery":
 			self.message += _("because of the used filesystem the backup\n")
 			self.message += _("will take about 30 minutes for this system.\n")
-		elif "tar.bz2" in self.ROOTFSTYPE.split() or SystemInfo["HasMultiBoot"]:
+		elif "tar.bz2" in self.ROOTFSTYPE.split() or SystemInfo["HasMultiBootGB"]:
 			self.message += _("because of the used filesystem the backup\n")
 			self.message += _("will take about 1-4 minutes for this system.\n")
 		else:
@@ -235,7 +236,7 @@ class ImageBackup(Screen):
 		if not path.exists("/tmp/bi/root"):
 			makedirs("/tmp/bi/root")
 		system("sync")
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			system("mount /dev/%s /tmp/bi/root" %self.MTDROOTFS)
 		else:
 			system("mount --bind / /tmp/bi/root")
@@ -247,7 +248,7 @@ class ImageBackup(Screen):
 			print "[ImageBackup] jffs2 cmd1: ", cmd1
 			print "[ImageBackup] jffs2 cmd2: ", cmd2
 			print "[ImageBackup] jffs2 cmd3: ", cmd3
-		elif "tar.bz2" in self.ROOTFSTYPE.split() or SystemInfo["HasMultiBoot"]:
+		elif "tar.bz2" in self.ROOTFSTYPE.split() or SystemInfo["HasMultiBootGB"]:
 			cmd1 = "%s -cf %s/rootfs.tar -C /tmp/bi/root --exclude=/var/nmbd/* ." % (self.MKFS, self.WORKDIR)
 			cmd2 = "%s %s/rootfs.tar" % (self.BZIP2, self.WORKDIR)
 			cmd3 = None
@@ -287,7 +288,7 @@ class ImageBackup(Screen):
 		else:
 			cmdlist.append("chmod 644 %s/root.%s" %(self.WORKDIR, self.ROOTFSTYPE))
 
-		if self.MODEL in ("gbquad4k"):
+		if self.MODEL in ("gbquad4k","gbue4k"):
 			cmdlist.append('echo " "')
 			cmdlist.append('echo "Create: boot dump boot.bin"')
 			cmdlist.append('echo " "')
@@ -295,12 +296,12 @@ class ImageBackup(Screen):
 			cmdlist.append('echo " "')
 			cmdlist.append('echo "Create: rescue dump rescue.bin"')
 			cmdlist.append('echo " "')
-			cmdlist.append("dd if=/dev/mmcblk0p5 of=%s/rescue.bin" % self.WORKDIR)
+			cmdlist.append("dd if=/dev/mmcblk0p3 of=%s/rescue.bin" % self.WORKDIR)
 
 		cmdlist.append('echo " "')
 		cmdlist.append('echo "Create: kernel dump"')
 		cmdlist.append('echo " "')
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			cmdlist.append("dd if=/dev/%s of=%s/kernel.bin" % (self.MTDKERNEL ,self.WORKDIR))
 		elif self.MTDKERNEL == "mmcblk0p1" or self.MTDKERNEL == "mmcblk0p3":
 			cmdlist.append("dd if=/dev/%s of=%s/%s" % (self.MTDKERNEL ,self.WORKDIR, self.KERNELBIN))
@@ -406,7 +407,7 @@ class ImageBackup(Screen):
 		else:
 			system('mv %s/root.%s %s/%s' %(self.WORKDIR, self.ROOTFSTYPE, self.MAINDEST, self.ROOTFSBIN))
 
-		if SystemInfo["HasMultiBoot"]:
+		if SystemInfo["HasMultiBootGB"]:
 			system('mv %s/kernel.bin %s/kernel.bin' %(self.WORKDIR, self.MAINDEST))
 		elif self.MTDKERNEL == "mmcblk0p1" or self.MTDKERNEL == "mmcblk0p3":
 			system('mv %s/%s %s/%s' %(self.WORKDIR, self.KERNELBIN, self.MAINDEST, self.KERNELBIN))
@@ -418,11 +419,12 @@ class ImageBackup(Screen):
 		else:
 			cmdlist.append('echo "rename this file to "force" to force an update without confirmation" > %s/noforce' %self.MAINDEST)
 
-		if self.MODEL in ("gbquad4k"):
+		if self.MODEL in ("gbquad4k","gbue4k"):
 			system('mv %s/boot.bin %s/boot.bin' %(self.WORKDIR, self.MAINDEST))
 			system('mv %s/rescue.bin %s/rescue.bin' %(self.WORKDIR, self.MAINDEST))
+			system('cp -f /usr/share/gpt.bin %s/gpt.bin' %(self.MAINDEST))
 
-		if self.MODEL in ("gbquad4k", "gbue4k", "gbquad", "gbquadplus", "gb800ue", "gb800ueplus", "gbultraue", "gbultraueh"):
+		if self.MODEL in ("gbquad", "gbquadplus", "gb800ue", "gb800ueplus", "gbultraue", "gbultraueh"):
 			lcdwaitkey = '/usr/share/lcdwaitkey.bin'
 			lcdwarning = '/usr/share/lcdwarning.bin'
 			if path.exists(lcdwaitkey):
@@ -456,7 +458,7 @@ class ImageBackup(Screen):
 			print '[ImageBackup] NOFORCE bin file not found'
 			file_found = False
 
-		if SystemInfo["HasMultiBoot"] and not self.list[self.selection] == "Recovery":
+		if SystemInfo["HasMultiBootGB"] and not self.list[self.selection] == "Recovery":
 			cmdlist.append('echo "_________________________________________________\n"')
 			cmdlist.append('echo "Multiboot Image created on:" %s' %self.MAINDEST)
 			cmdlist.append('echo "and there is made an extra copy on:"')
