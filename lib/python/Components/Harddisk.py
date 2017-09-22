@@ -12,6 +12,15 @@ def readFile(filename):
 	file.close()
 	return data
 
+def getextdevices(ext):
+	cmd ='blkid -t TYPE=%s -o device'%ext
+	extdevices = os.popen(cmd).read().replace('\n', ',').rstrip(",")
+	if extdevices == "":
+		return None
+	else:
+		extdevices = [x.strip() for x in extdevices.split(",")]
+		return extdevices
+
 def getProcMounts():
 	try:
 		mounts = open("/proc/mounts", 'r')
