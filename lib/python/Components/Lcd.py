@@ -95,11 +95,19 @@ def InitLcd():
 			def setLCDScreenshot(configElement):
 				ilcd.setScreenShot(configElement.value);
 
-			config.lcd.modepip = ConfigSelection(choices={
-					"0": _("off"),
-					"4": _("PIP"),
-					"6": _("PIP with OSD")},
-					default = "0")
+			if getBoxType() in ('gbquad4k', 'gbue4k'):
+				config.lcd.modepip = ConfigSelection(choices={
+						"0": _("off"),
+						"4": _("PIP"),
+						"6": _("PIP with OSD")},
+						default = "0")
+			else:
+				config.lcd.modepip = ConfigSelection(choices={
+						"0": _("off"),
+						"5": _("PIP"),
+						"7": _("PIP with OSD")},
+						default = "0")
+
 			if getBoxType() in ('gbquad4k', 'gbue4k', 'gbquad', 'gbquadplus'):
 				config.lcd.modepip.addNotifier(setLCDModePiP)
 			else:
