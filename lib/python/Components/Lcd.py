@@ -127,10 +127,10 @@ def InitLcd():
 						("7", _("MiniTV with OSD - video0+video1+fb"))]) 
 			else:
 				config.lcd.modeminitv = ConfigSelection(default = "0", choices=[
-						"0", _("normal"),
-						"1", _("MiniTV - video0"),
-						"2", _("OSD - fb"),
-						"3", _("MiniTV with OSD - video0+fb")]) 
+						("0", _("normal")),
+						("1", _("MiniTV - video0")),
+						("2", _("OSD - fb")),
+						("3", _("MiniTV with OSD - video0+fb"))]) 
 			config.lcd.fpsminitv = ConfigSlider(default=30, limits=(0, 30))
 			config.lcd.modeminitv.addNotifier(setLCDModeMinitTV)
 			config.lcd.fpsminitv.addNotifier(setMiniTVFPS)
