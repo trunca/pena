@@ -442,15 +442,13 @@ class Satfinder(ScanSetup, ServiceScan):
 
 	def retune(self, configElement):
 		if nimmanager.nim_slots[int(self.satfinder_scan_nims.value)].isCompatible("DVB-S"):
-			return self.retuneSat(configElement)
-		if nimmanager.nim_slots[int(self.satfinder_scan_nims.value)].isCompatible("DVB-T"):
-			return self.retuneTerr(configElement)
+			self.retuneSat(configElement)
+		elif nimmanager.nim_slots[int(self.satfinder_scan_nims.value)].isCompatible("DVB-T"):
+			self.retuneTerr(configElement)
 		elif nimmanager.nim_slots[int(self.satfinder_scan_nims.value)].isCompatible("DVB-C"):
-			return self.retuneCab(configElement)
+			self.retuneCab(configElement)
 		elif nimmanager.nim_slots[int(self.satfinder_scan_nims.value)].isCompatible("ATSC"):
-			return self.retuneATSC(configElement)
-		else:
-			return
+			self.retuneATSC(configElement)
 
 	def keyGoScan(self):
 		if self.transponder is None:
