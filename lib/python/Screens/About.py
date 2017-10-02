@@ -342,9 +342,9 @@ class CommitInfo(Screen):
 		if self.projects[self.project][4] == "gitlab":
 			url1 = 'https://gitlab.com/api/v4/projects/%s' % (self.projects[self.project][0])
 			url2 = '%2F'
-			url3 = '%s/repository/commits?sha=%s' % (self.projects[self.project][1], self.projects[self.project][3])
+			url3 = '%s/repository/commits?ref_name=%s' % (self.projects[self.project][1], self.projects[self.project][3])
 			url = url1 + url2 + url3
-		# print "[About] url: ", url
+			# print "[About] url: ", url
 		commitlog = ""
 		from datetime import datetime
 		from json import loads
