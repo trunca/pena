@@ -28,7 +28,7 @@ from boxbranding import getBoxType, getMachineBrand, getMachineName, getMachineR
 images = []
 global imagesCounter
 imagesCounter = 0
-images.append(["teamBlue 6.1", "http://images.teamblue.tech/6.1", "%s/index.php?open=%s"])
+images.append(["teamBlue 6.1", "http://images.teamblue.tech/6.1-release", "%s/index.php?open=%s"])
 images.append(["openATV 6.1", "http://images.mynonpublic.com/openatv/6.1", "%s/index.php?open=%s"])
 
 imagePath = '/media/hdd/images'
