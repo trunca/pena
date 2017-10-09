@@ -12,7 +12,8 @@ class NetlinkReader():
 	def doRead(self):
 		for event in self.nls.parse():
 			try:
-				if event['SUBSYSTEM'] == 'input':
+				subsystem = event['SUBSYSTEM']
+				if subsystem == 'input':
 					devname = event['DEVNAME']
 					action = event['ACTION']
 					if action == 'add':
