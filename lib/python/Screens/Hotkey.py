@@ -644,7 +644,7 @@ class InfoBarHotkey():
 				command = '/usr/script/' + selected[1] + ".sh"
 				if os.path.isfile(command):
 					from Screens.Console import Console
-					self.session.open(Console, selected[1] + " shellscript", [command], closeOnSuccess=selected[1].startswith('!'), showStartStopText=False)
+					self.session.open(Console, selected[1] + " shellscript", command, closeOnSuccess=selected[1].startswith('!'), showStartStopText=False)
 				else:
 					exec "self.session.open(Console,_(selected[1]),[command], showStartStopText=False)"
 			elif selected[0] == "Menu":
