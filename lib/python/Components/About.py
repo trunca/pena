@@ -29,12 +29,10 @@ def getFlashDateString():
 		return _("unknown")
 
 def getEnigmaVersionString():
-	#import enigma
-	#enigma_version = enigma.getEnigmaVersionString().rsplit("-", 2)
-	#if len(enigma_version) == 3:
-	#	enigma_version = enigma_version[0] + " " + enigma_version[2] + "-" + enigma_version[1]
-	#else:
-	#	enigma_version = " ".join(enigma_version)
+	# import enigma
+	# enigma_version = enigma.getEnigmaVersionString()
+	# if len(enigma_version) > 11:
+	# 	enigma_version = enigma_version[:10] + " " + enigma_version[11:]
 	from boxbranding import getImageVersion
 	enigma_version = getImageVersion()
 	if '-(no branch)' in enigma_version:
