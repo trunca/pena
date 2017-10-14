@@ -1538,7 +1538,7 @@ msgid "Bus: "
 msgstr "Bus: "
 
 msgid "By default, SNR will be shown in dB (when supported by the tuner). This setting forces SNR to be shown as a percentage instead."
-msgstr "Standardmässig wird SNR in Dezibel angezeigt (falls vom Tuner unterstütztDiese Einstellung erzwingt die Darstellung von SNR in Prozent."
+msgstr "Standardmässig wird SNR in Dezibel angezeigt (falls vom Tuner unterstützt). Diese Einstellung erzwingt die Darstellung von SNR in Prozent."
 
 msgid "By teamBlue Image Team"
 msgstr "vom teamBlue Image Team"
@@ -1875,7 +1875,7 @@ msgid "Choose bouquet"
 msgstr "Kanalliste auswählen"
 
 msgid "Choose the location for crash and debuglogs."
-msgstr "Speicherort für Crash und Debuglogs auswählen."
+msgstr "Speicherort für Crash- und Debuglogs auswählen."
 
 msgid "Choose which tuner to configure."
 msgstr "Wählen Sie den einzustellendenTuner aus."
@@ -2086,7 +2086,7 @@ msgid "Configure the aspect ratio of the screen."
 msgstr "Bildformat des Bildschirms konfigurieren."
 
 msgid "Configure the behavior of the 'pause and ok' key when movie playback is already paused."
-msgstr "Konfiguriere das Verhalten der 'Pause und OK-Taste, wenn die Filmwiedergabe bereits gestoppt wurde."
+msgstr "Konfiguriere das Verhalten der 'Pause und OK-Taste', wenn die Filmwiedergabe bereits gestoppt wurde."
 
 msgid "Configure the behavior when movie playback is manually stopped."
 msgstr "Verhalten beim Stoppen eines Films"
@@ -2125,7 +2125,7 @@ msgid "Configure the duration in minutes for the screensaver."
 msgstr "Konfiguriert die Dauer in Minuten bis zum Start des Screensavers."
 
 msgid "Configure the duration in minutes for the sleeptimer. Select this entry and click OK or green to start/stop the sleeptimer"
-msgstr "Konfiguriere den Zeitraum in Minuten für den Ausschalt-Timer. Wähle diesen Eintrag aus und drücke OK oder die grüne Taste, um den Ausschalt-Timer zu staren/beenden."
+msgstr "Konfiguriere den Zeitraum in Minuten für den Ausschalt-Timer. Wähle diesen Eintrag aus und drücke OK oder die grüne Taste, um den Ausschalt-Timer zu starten/beenden."
 
 msgid "Configure the duration when the receiver should go to shut down in case the receiver is in standby mode."
 msgstr "Konfiguriere die Dauer, wann der Receiver ausgeschaltet werden soll, falls er sich im Standby-Modus befindet."
@@ -2188,7 +2188,7 @@ msgid "Configure the number of days after which items are automaticaly removed f
 msgstr "Anzahl von Tagen nach denen Elemente aus dem Mülleimer automatisch gelöscht werden."
 
 msgid "Configure the number of days old timers are kept before they are automatically removed from the timer list."
-msgstr "Anzahl von Tagen nach denen Timers von der Timer-Liste automatischgelöscht werden sollen."
+msgstr "Anzahl von Tagen nach denen Timer von der Timer-Liste automatisch gelöscht werden sollen."
 
 msgid "Configure the offline decoding delay in milliseconds. The configured delay is observed at each control word parity change."
 msgstr "Lokale Dekodierungsverzögerung in Millisekunden. Die gesetzte Verzögerung wird bei jedem Kontrollwortparität-Wechsel beachtet."
@@ -2236,7 +2236,7 @@ msgid "Configure the source of the frontend data as shown on the infobars. 'Sett
 msgstr "Konfiguriere die Frontend Datenquelle, die in der Infobar angezeigt wird. Das Feld  'Einstellungen' (Settings) kann konfiguriert werden. Das Feld 'Tuner' wird vom Tuner übernommen."
 
 msgid "Configure the speed of the background deletion process. Lower speed will consume less hard disk drive performance."
-msgstr "Schnelligkeit des Hintergrund-Löschprozesses. Ein längsamerer Löschvorgang verbraucht weniger Festplatten Performanz."
+msgstr "Schnelligkeit des Hintergrund-Löschprozesses. Ein langsamerer Löschvorgang verbraucht weniger Festplatten Performanz."
 
 msgid "Configure the speed of the fan"
 msgstr "Lüftergeschwindigkeit konfigurieren"
@@ -2293,7 +2293,7 @@ msgid "Configure whether multi channel sound tracks should be downmixed to stere
 msgstr "Heruntermischen von Multi-Kanal-Sound in Stereo."
 
 msgid "Configure whether or not an icon should be shown when your motorized dish is moving."
-msgstr "Anzeige eines Hinweissymbols bei Bewegung der mororisierten Antennenschüssel."
+msgstr "Anzeige eines Hinweissymbols bei Bewegung der motorisierten Antennenschüssel."
 
 msgid "Configure whether or not an rotor position will be displayed on infobar"
 msgstr "Konfiguriert ob die Rotor Position in der Infobar angezeigt werden soll"
@@ -2311,7 +2311,7 @@ msgid "Configure which tuner type will be preferred, when the same service is av
 msgstr "Bevorzugter Tunertyp falls der Kanal auf mehreren Typen von Tunern zur Verfügung steht."
 
 msgid "Configure which tuner will be preferred, when more than one tuner is available. If set to 'auto' the system will give priority to the tuner having the lowest number of channels/satellites."
-msgstr "Bevorzugter Tuner falls mehr als einer verfügbar ist. Bei 'auto' wird der Tuner mit den wenigsten Kanälen/Satelliten bevorzugt.."
+msgstr "Bevorzugter Tuner falls mehr als einer verfügbar ist. Bei 'Automatisch' wird der Tuner mit den wenigsten Kanälen/Satelliten bevorzugt."
 
 msgid "Configure your Cable settings and press OK to start the scan"
 msgstr ""
@@ -2398,7 +2398,7 @@ msgid "Contrast"
 msgstr "Kontrast"
 
 msgid "Control the Infobar fading speed"
-msgstr "Beeinflusse die Geschwindigkeit der Infobar Einblendung"
+msgstr "Beeinflusse die Geschwindigkeit der Infobar Ausblendung"
 
 msgid "Convert ext3 filesystem to ext4"
 msgstr "Ext3 Dateisystem nach ext4 umwandeln"
@@ -2878,7 +2878,7 @@ msgid "Directory contains %s and %s."
 msgstr "Das Verzeichnis enthält %s und %s."
 
 msgid "Disable"
-msgstr "Aus"
+msgstr "Deaktivieren"
 
 msgid "Disable Animations"
 msgstr "Animation ausschalten"
@@ -3306,7 +3306,7 @@ msgid "Enable freesat EPG"
 msgstr "Aktiviere freesat EPG"
 
 msgid "Enable infobar fade-out"
-msgstr "Aktiviere ausblenden der Infobar"
+msgstr "Aktiviere Ausblenden der Infobar"
 
 msgid "Enable multiple bouquets"
 msgstr "Mehrere Bouquets erlauben"
@@ -3649,7 +3649,7 @@ msgid "Factory reset"
 msgstr "Werkseinstellungen"
 
 msgid "Fade the Infobar on hide"
-msgstr "Ausblenden der Infobar beim beenden"
+msgstr "Ausblenden der Infobar beim Beenden"
 
 msgid "Fahrenheit"
 msgstr "Fahrenheit"
@@ -4177,7 +4177,7 @@ msgid "Handle standby from TV"
 msgstr "Receiver mit Fernseher in den Standby versetzen"
 
 msgid "Handle wakeup from TV"
-msgstr "Receiver mit Fernseher aufwachen"
+msgstr "Receiver mit Fernseher aufwecken"
 
 msgid "Hard disk"
 msgstr "Festplatte"
@@ -5519,7 +5519,7 @@ msgid "Network:"
 msgstr "Netzwerk:"
 
 msgid "Never decrypt the content while recording. This overrides the individual timer settings globally. If enabled, recordings are stored in crypted presentation and must be decrypted afterwards (sometimes called offline decoding). Default: off."
-msgstr "Aufnahmen nicht entschlüsseln.. Dies übergeht global die einzelnen Timereinstellungen. Aufnahmen werden verschlüsselt gespeichert und müssen hinterher entschlüsselt werden. Standard: aus"
+msgstr "Aufnahmen nicht entschlüsseln. Dies übergeht global die einzelnen Timereinstellungen. Aufnahmen werden verschlüsselt gespeichert und müssen hinterher entschlüsselt werden. Standard: aus"
 
 msgid "Never decrypt while recording"
 msgstr "Nie während der Aufnahme entschlüsseln"
@@ -9343,7 +9343,7 @@ msgid "This option sets the scaler sharpness, used when stretching picture from 
 msgstr "Diese Option bestimmt die Skalierschärfe die benutzt wird, wenn von 4:3 auf 16:9 skaliert wird."
 
 msgid "This option sets the surpression of false digital contours, that are the result of a limited number of discrete values."
-msgstr "Diese Option bestimmt die Unterdrückung falscher, digitaler Umrisse. Diese Fehler enstehen durch zu wenige diskrete Werte."
+msgstr "Diese Option bestimmt die Unterdrückung falscher, digitaler Umrisse. Diese Fehler entstehen durch zu wenige diskrete Werte."
 
 msgid "This option sets up the picture sharpness, used when the picture is being upscaled."
 msgstr "Diese Option bestimmt die Scalerschärfe. Dieser Punkt wirkt sich aus, wenn ein Bild vergrößert werden muss."
@@ -9923,10 +9923,10 @@ msgid "Use USALS for this sat"
 msgstr "USALS für diesen Sat benutzen"
 
 msgid "Use ViaSat EPG information when it is available."
-msgstr "Verwende ViaSat EPG Infromation falls vorhanden."
+msgstr "Verwende ViaSat EPG Information falls vorhanden."
 
 msgid "Use Virgin EPG information when it is available."
-msgstr "Nutzte Virgin EPG-Informationen, sofern verfügbar."
+msgstr "Verwende Virgin EPG Information falls vorhanden."
 
 msgid "Use a gateway"
 msgstr "Einen Gateway verwenden?"
@@ -10367,7 +10367,7 @@ msgid "What do you want to scan?"
 msgstr "Was wollen Sie suchen?"
 
 msgid "When enabled enigma2 will load unlinked userbouquets. This means that userbouquets that are available, but not included in the bouquets.tv or bouquets.radio files, will still be loaded. This allows you for example to keep your own user bouquet while installed settings are upgraded"
-msgstr "Wenn aktiviert, werden auch nichtverlinkte Bouquets geladen. D.h. Userbouquets die vorhanden sind aber nicht in der bouquets.tv oder bouquets.radio hinterlegt wurden, werden geladen. Damit kann eine Eigene Bouquetliste behalten werden, während sich die Senderlisten aktualisieren."
+msgstr "Wenn aktiviert, werden auch nichtverlinkte Bouquets geladen. D.h. Userbouquets die vorhanden sind aber nicht in der bouquets.tv oder bouquets.radio hinterlegt wurden, werden geladen. Damit kann eine eigene Bouquetliste behalten werden, während sich die Senderlisten aktualisieren."
 
 msgid "When enabled the PiP can be closed by the exit button."
 msgstr "Falls aktiviert, kann PiP mit der Exit-Taste geschlossen werden."
@@ -10424,7 +10424,7 @@ msgid "When enabled, a warning will be displayed and the user will get an option
 msgstr "Fall aktiviert, wird eine Warnung angezeigt und der Benutzer kann wählen zwischen dem Beenden oder Fortfahren der Timeshift-Aufnahme."
 
 msgid "When enabled, always descramble receiving http streams. This takes up more resources (descrambling demuxers), only enable if necessary. Individual streams are always descrambled if 0x100 is added to the service type, regardless of this setting. Default off."
-msgstr "Wenn aktiviert, werdenHTTP Streams entschlüsselt. Dies benötigt mehr Resourcen, aktivieren Sie es nur wenn Notwendig. Streams werden immer entschlüsselt wenn 0x100 als Kanaltyp gesetzt wurde. (Standard: Aus)"
+msgstr "Wenn aktiviert, werden HTTP Streams entschlüsselt. Dies benötigt mehr Resourcen, aktivieren Sie es nur wenn notwendig. Streams werden immer entschlüsselt wenn 0x100 als Kanaltyp gesetzt wurde. (Standard: Aus)"
 
 msgid "When enabled, authentication is required to watch http streams."
 msgstr "Wenn aktiviert, ist eine Anmeldung erforderlich um HTTP Streams zu sehen."
@@ -10466,7 +10466,7 @@ msgid "When enabled, graphical DVB subtitles will be displayed in yellow, instea
 msgstr "DVB grafische Untertitel immer gelb anzeigen, anstatt in ihrer ursprünglichen Farbe."
 
 msgid "When enabled, http streams are descrambled on the server side. The (remote) client receiver does not have to do descrambling. Default on."
-msgstr "Wenn aktiviert, werden HTTP Streams Serverseitig entschlüsselt. Der Client muss es dann nicht tun (Standardeinstellung)"
+msgstr "Wenn aktiviert, werden HTTP Streams serverseitig entschlüsselt. Der Client muss es dann nicht tun (Standardeinstellung)"
 
 msgid "When enabled, it is possible to leave the movieplayer with exit."
 msgstr "Falls aktiviert, kann der Movieplayer mit der Exit-Taste geschlossen werden."
@@ -10511,7 +10511,7 @@ msgid "When enabled, the infobar will be displayed when changing channels."
 msgstr "Infoleiste bei Kanalwechsel anzeigen."
 
 msgid "When enabled, the infobar will be displayed when skipping forwards/backwards during media playback."
-msgstr "Infoleiste beim Spulen in der Medienwiedergabe anzeigen ."
+msgstr "Infoleiste beim Spulen in der Medienwiedergabe anzeigen."
 
 msgid "When enabled, the lenght of each recording will be shown in the movielist (this might cause some additional loading time)."
 msgstr "Spielzeit aller Aufnahmen in der Filmliste anzeigen (verursacht höhere Ladezeiten)."
@@ -10550,7 +10550,7 @@ msgid "When nonzero, a recording will start earlier than the starting time indic
 msgstr "Aufnahme früher beginnen, als Startzeit die EPG zur Verfügung stellt (falls nicht 0)."
 
 msgid "When nonzero, a recording will stop later than the ending time indicated by the EPG."
-msgstr "Aufnahme früher stoppen, als Endzeit die EPG zur Verfügung stellt (falls nicht 0)."
+msgstr "Aufnahme später stoppen, als Endzeit die EPG zur Verfügung stellt (falls nicht 0)."
 
 msgid "When the content has an aspect ratio of 16:9, choose whether to scale/stretch the picture."
 msgstr "Skalieren/Strecken wenn Inhalt ein Bildformat von 16:9 aufweist."
