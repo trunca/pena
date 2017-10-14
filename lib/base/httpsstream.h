@@ -10,7 +10,7 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 
-class eHttpStream: public iTsSource, public sigc::trackable, public eThread
+class eHttpsStream: public iTsSource, public Object, public eThread
 {
 	DECLARE_REF(eHttpsStream);
 
