@@ -182,6 +182,8 @@ class eDVBResourceManager: public iObject, public sigc::trackable
 	friend class eDVBChannel;
 	friend class eFBCTunerManager;
 	ePtr<eFBCTunerManager> m_fbcmng;
+	friend class eRTSPStreamClient;
+
 	RESULT addChannel(const eDVBChannelID &chid, eDVBChannel *ch);
 	RESULT removeChannel(eDVBChannel *ch);
 
