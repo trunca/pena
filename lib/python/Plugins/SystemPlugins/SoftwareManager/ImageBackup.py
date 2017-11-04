@@ -78,6 +78,7 @@ class ImageBackup(Screen):
 		if SystemInfo["HasMultiBootGB"]:
 			self["key_yellow"] = Button(_("STARTUP"))
 			self["info-multi"] = Label(_("You can select with yellow the OnlineFlash Image\n or select Recovery to create a USB Disk Image for clean Install."))
+			self.read_current_multiboot()
 		else:
 			self["key_yellow"] = Button("")
 			self["info-multi"] = Label(" ")
@@ -132,15 +133,29 @@ class ImageBackup(Screen):
 			if self.selection == len(self.list):
 				self.selection = 0
 			self["key_yellow"].setText(_(self.list[self.selection]))
+			self.read_current_multiboot()
+
+	def read_current_multiboot(self):
+		if self.MACHINEBUILD in ("hd51","vs1500","h7"):
+			if self.list[self.selection] == "Recovery":
+				cmdline = self.read_startup("/boot/STARTUP").split("=",3)[3].split(" ",1)[0]
+			else:
+				cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",3)[3].split(" ",1)[0]
+		elif self.MACHINEBUILD in ("8100s"):
+			if self.list[self.selection] == "Recovery":
+				cmdline = self.read_startup("/boot/STARTUP").split("=",4)[4].split(" ",1)[0]
+			else:
+				cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",4)[4].split(" ",1)[0]
+		else:
 			if self.list[self.selection] == "Recovery":
 				cmdline = self.read_startup("/boot/cmdline.txt").split("=",1)[1].split(" ",1)[0]
 			else:
 				cmdline = self.read_startup("/boot/" + self.list[self.selection]).split("=",1)[1].split(" ",1)[0]
-			cmdline = cmdline.lstrip("/dev/")
-			self.MTDROOTFS = cmdline
-			self.MTDKERNEL = cmdline[:-1] + str(int(cmdline[-1:]) -1)
-			print "[ImageBackup] Multiboot rootfs ", self.MTDROOTFS
-			print "[ImageBackup] Multiboot kernel ", self.MTDKERNEL
+		cmdline = cmdline.lstrip("/dev/")
+		self.MTDROOTFS = cmdline
+		self.MTDKERNEL = cmdline[:-1] + str(int(cmdline[-1:]) -1)
+		print "[ImageBackup] Multiboot rootfs ", self.MTDROOTFS
+		print "[ImageBackup] Multiboot kernel ", self.MTDKERNEL
 
 	def read_startup(self, FILE):
 		self.file = FILE
