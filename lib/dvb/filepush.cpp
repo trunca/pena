@@ -357,71 +357,75 @@ int64_t eFilePushThreadRecorder::getTick()
 
 int eFilePushThreadRecorder::read_dmx(int fd, void *m_buffer, int size)
 {
-	unsigned char *buf = (unsigned char *)m_buffer;
-	int it = 0, pos  = 0, bytes = 0;
+	int it = 0, pos = 0, bytes = 0;
 	int i, left;
 	static int cnt;
 	unsigned char *b;
 	uint64_t start = getTick();
-	if(m_reply.size() > 0)
-	{
-		pos = m_reply.size();
-		buf[0] = 0;
-		memcpy(m_buffer, m_reply.data(), pos);
-		eDebug("added reply of %d bytes", pos, m_buffer);
-		m_reply.clear();
-	}
-	while(size - pos >= 188 + 16 )
+	while (size - pos >= 188 + 16)
 	{
 		left = size - pos - 16;
-		left = (left > 188*7) ? 188*7 : ((left / 188)*188);
-		if(m_packet_no == 0)
+		left = (left > 188 * 7) ? 188 * 7 : ((left / 188) * 188);
+		if (m_packet_no == 0)
 			left = 188;
-//		eDebug("reading %d bytes, left %d, pos %d", left, size - pos, pos);
+		//		eDebug("reading %d bytes, left %d, pos %d", left, size - pos, pos);
 		unsigned char *buf = (unsigned char *)m_buffer;
 		buf += pos;
-		bytes = ::read(fd, buf + 16, left );
-//		eDebug("read %d bytes from %d", bytes, left);
-		if(bytes <= 0)
+		bytes = ::read(fd, buf + 16, left);
+		//		eDebug("read %d bytes from %d", bytes, left);
+		if (bytes <= 0 && errno != EAGAIN && errno != EINTR)
 			break;
-		m_packet_no ++;
-		it++;
-		for(i=0;i<bytes;i+=188)
+		if (bytes > 0)
 		{
-			b = buf + 16 + i;
-			int pid = (b[1] & 0x1F) * 256 + b[2];
-			
-			if((b[3] & 0x80)) // mark decryption failed if not decrypted by enigma
+			m_packet_no++;
+			it++;
+			for (i = 0; i < bytes; i += 188)
 			{
-				if((errs++ % 100)==0)eDebug("decrypt errs %d, pid %d", errs, pid);
-				b[1] |= 0x1F;
-				b[2] |= 0xFF;
+				b = buf + 16 + i;
+				int pid = (b[1] & 0x1F) * 256 + b[2];
+
+				if ((b[3] & 0x80)) // mark decryption failed if not decrypted by enigma
+				{
+					if ((errs++ % 100) == 0)
+						eDebug("decrypt errs %d, pid %d", errs, pid);
+					b[1] |= 0x1F;
+					b[2] |= 0xFF;
+				}
 			}
+			buf[0] = 0x24;
+			buf[1] = 0;
+			copy16(buf, 2, (uint16_t)(bytes + 12));
+			copy16(buf, 4, 0x8021);
+			copy16(buf, 6, m_stream_id);
+			copy32(buf, 8, cnt);
+			copy32(buf, 12, m_session_id);
+			cnt++;
+			pos += bytes + 16;
 		}
-		buf[0] = 0x24;
-		buf[1] = 0;
-		copy16(buf, 2, (uint16_t )(bytes + 12));
-		copy16(buf, 4, 0x8021);
-		copy16(buf, 6, m_stream_id);
-		copy32(buf, 8, cnt);
-		copy32(buf, 12, m_session_id);
-		cnt++;
-		pos += bytes + 16;
-		if(left != bytes) // less bytes
+		if (m_reply.size() > 0)
+		{
+			pos = m_reply.size();
+			buf[0] = 0;
+			memcpy(m_buffer, m_reply.data(), pos);
+			eDebug("added reply of %d bytes", pos, m_buffer);
+			m_reply.clear();
+			break; // reply to the server ASAP
+		}
+		uint64_t ts = getTick() - start;
+
+		if ((pos > 0) && (bytes == -1) && (ts > 50)) // do not block more than 50ms if there is available data
 			break;
 
-		if(getTick() - start > 50) // do not read more than 50ms
-			break;
+		if (bytes < 0)
+			usleep(5000);
 	}
 	uint64_t ts = getTick() - start;
-//	if(pos < size / 2)
-	if(((ts > 1000) || m_packet_no < 5) && (bytes > 0))
-		eDebug("returning %d bytes, last read %d bytes in %jd ms (iteration %d)", pos, bytes, ts, m_packet_no);
-	if(pos == 0)
+	//	if (ts > 1000)
+	eDebug("returning %d bytes, last read %d bytes in %jd ms (iteration %d)", pos, bytes, ts, m_packet_no);
+	if (pos == 0)
 		return bytes;
 	return pos;
 }
-
 
 void eFilePushThreadRecorder::thread()
 {
