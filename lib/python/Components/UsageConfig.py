@@ -322,7 +322,6 @@ def InitUsageConfig():
 		choicelist.append(("%d" % i, "%d ms" % i))
 	config.usage.numzaptimeout1 = ConfigSelection(default = "3000", choices = choicelist)
 	config.usage.numzaptimeout2 = ConfigSelection(default = "1000", choices = choicelist)
-	config.usage.force_dvb_api_3 = ConfigYesNo(default = False)
 
 	def SpinnerOnOffChanged(configElement):
 		setSpinnerOnOff(int(configElement.value))
