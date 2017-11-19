@@ -23,7 +23,7 @@ class VideoHardware:
 	rates = { } # high-level, use selectable modes.
 
 	modes = { }  # a list of (high-level) modes for a certain port.
-	
+
 	rates["PAL"] =			{ "50Hz":		{ 50: "pal" },
 								"60Hz": 	{ 60: "pal60" },
 								"multi": 	{ 50: "pal", 60: "pal60" } }
@@ -78,7 +78,7 @@ class VideoHardware:
 
 	rates["2160p"] =		{ "50Hz":	{ 50: "2160p50" },
 								"60Hz":		{ 60: "2160p" },
-								"multi":	{ 50: "2160p50", 60: "2160p" }, 
+								"multi":	{ 50: "2160p50", 60: "2160p" },
 								"multi (50/60/24p)": {50: "2160p50", 60: "2160p", 24: "2160p24" }}
 
 	rates["PC"] = {
@@ -98,7 +98,7 @@ class VideoHardware:
 
 	modes["Scart"] = ["PAL", "NTSC", "Multi"]
 	modes["DVI-PC"] = ["PC"]
-	
+
 	if chipset in ('bcm7358', 'bcm7346', 'bcm7356', 'bcm7405', 'bcm7362', 'bcm73625'):
 		modes["YPbPr"] = ["720p", "1080i", "1080p", "576p", "480p", "576i", "480i"]
 		modes["DVI"] = ["720p", "1080i", "1080p", "576p", "480p", "576i", "480i"]
@@ -415,17 +415,18 @@ class VideoHardware:
 				aspect = "16:9"
 			else:
 				aspect = {"16_9": "16:9", "16_10": "16:10"}[config.av.aspect.value]
-			policy_choices = {"pillarbox": "panscan", "panscan": "letterbox", "nonlinear": "nonlinear", "scale": "bestfit"}
+			policy_choices = {"pillarbox": "panscan", "panscan": "letterbox", "nonlinear": "nonlinear", "scale": "bestfit", "bestfit": "bestfit", "letterbox": "letterbox"}
 			if os.path.exists("/proc/stb/video/policy_choices") and "auto" in open("/proc/stb/video/policy_choices").readline():
 				policy_choices.update({"auto": "auto"})
 			else:
-				policy_choices.update({"auto": "bestfit"})	
+				policy_choices.update({"auto": "bestfit"})
 			policy = policy_choices[config.av.policy_43.value]
-			policy2_choices = {"letterbox": "letterbox", "panscan": "panscan", "scale": "bestfit"}
+			policy2_choices = {"letterbox": "letterbox", "panscan": "panscan", "nonlinear": "nonlinear", "scale": "bestfit", "bestfit": "bestfit"}
 			if os.path.exists("/proc/stb/video/policy2_choices") and "auto" in open("/proc/stb/video/policy2_choices").readline():
 				policy2_choices.update({"auto": "auto"})
 			else:
-				policy2_choices.update({"auto": "bestfit"})	
+				policy2_choices.update({"auto": "bestfit"})
+			# print "VIDEOHARDWARE policy2_choices: ", policy2_choices
 			policy2 = policy2_choices[config.av.policy_169.value]
 		elif is_auto:
 			aspect = "any"
