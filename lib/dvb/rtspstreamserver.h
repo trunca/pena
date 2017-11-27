@@ -24,7 +24,6 @@ class eRTSPStreamClient : public eDVBServiceStream
 	eDVBRecordStreamThread *streamThread;
 	std::string m_remotehost;
 	std::string m_serviceref;
-	char machine_brand[50], machine_name[50], creator[50], version[50], machine_url[50], date[50];
 	bool m_useencoder;
 	int proto;
 	int freq, pol, sys;
@@ -40,9 +39,7 @@ class eRTSPStreamClient : public eDVBServiceStream
 	std::set<int> pids;
 	std::map<int, eServiceReferenceDVB> pid_sr;
 	std::string request;
-	eServiceReferenceDVB service_list[100];
 	std::set<eServiceReferenceDVB> not_cached_sr;
-	int n_service_list;
 	int src, fe;
 	eDVBFrontendParametersSatellite sat;
 	eDVBFrontendParametersTerrestrial ter;
@@ -76,11 +73,11 @@ class eRTSPStreamClient : public eDVBServiceStream
 	int addCachedPids(ePtr<eDVBService> service, eServiceReferenceDVB s);
 	void update_service_list();
 	int set_demux_buffer(int size);
-	void process_pids(int op, char *pids);
-	void http_response(int sock, int rc, char *ah, char *desc, int cseq, int lr);
-	void describe_frontend(char *buf, int len);
+	void process_pids(int op, const std::string &pid_str);
+	std::string get_current_timestamp();
+	void http_response(int sock, int rc, const std::string &ah, const std::string &desc, int cseq, int lr);
+	std::string describe_frontend();
 	void getFontends(int &dvbt, int &dvbt2, int &dvbs2, int &dvbc, int &dvbc2);
-	void init_branding();
 
   public:
 	void stopStream();
