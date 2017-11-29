@@ -116,6 +116,8 @@ typedef std::list<CIPmtHandler> PMTHandlerList;
 class eDVBCIInterfaces
 {
 	DECLARE_REF(eDVBCIInterfaces);
+	std::string m_offline_ci;
+	std::string m_default_source;
 	static eDVBCIInterfaces *instance;
 	eSmartPtrList<eDVBCISlot> m_slots;
 	eDVBCISlot *getSlot(int slotid);

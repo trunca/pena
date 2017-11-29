@@ -67,6 +67,35 @@ eDVBCIInterfaces::eDVBCIInterfaces()
 	}
 
 	eDebug("[CI] done, found %d common interface slots", ci_num);
+
+	if (ci_num)
+	{
+		std::string ci_choices = CFile::read("/proc/stb/tsmux/ci_input0_choices");
+
+		if (ci_choices.find("DVR") != std::string::npos)
+		{
+			eDebug("[CI] Offline CI decoding supported via DVR");
+			m_offline_ci = "DVR";
+		}
+		else if (ci_choices.find("PVR") != std::string::npos)
+		{
+			/* support VU+ PVR interface until they switch to DVRx" */
+			eDebug("[CI] Offline CI decoding supported via PVR");
+			m_offline_ci = "PVR";
+		}
+		else
+		{
+			eDebug("[CI] Offline CI decoding not supported, try using with default DVR");
+			m_offline_ci = "DVR";
+		}
+
+		/* check if default source NONE required or else A */
+		if (ci_choices.find("NONE") != std::string::npos)
+			m_default_source = "NONE";
+		else
+			m_default_source = "A";
+
+	}
 }
 
 eDVBCIInterfaces::~eDVBCIInterfaces()
@@ -490,7 +519,9 @@ void eDVBCIInterfaces::recheckPMTHandlers()
 								 * No need to set tuner input (setInputSource), because we have no tuner.
 								 */
 								std::stringstream source;
-								source << "DVR" << channel->getDvrId();
+								source << m_offline_ci;
+								if (m_offline_ci == "DVR")
+									source << channel->getDvrId();
 								ci_it->setSource(source.str());
 							}
 						}
@@ -575,9 +606,9 @@ void eDVBCIInterfaces::removePMTHandler(eDVBServicePMTHandler *pmthandler)
 				caids.push_back(0xFFFF);
 				slot->sendCAPMT(pmthandler, caids);  // send a capmt without caids to remove a running service
 				slot->removeService(service_to_remove.getServiceID().get());
-				/* restore ci source to the default (tuner "A") */
+				/* restore ci source to the default (tuner "A" or "NONE") */
 				if (slot->current_tuner == -1)
-					slot->setSource("A");
+					slot->setSource(m_default_source);
 			}
 
 			if (!--slot->use_count)
