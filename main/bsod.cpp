@@ -224,6 +224,7 @@ void bsodFatal(const char *component)
 
 		xml.open("crashlogs");
 		xml.cDataFromString("enigma2crashlog", getLogBuffer());
+		xml.cDataFromCmd("dmesg", "dmesg");
 		xml.close();
 
 		xml.close();
