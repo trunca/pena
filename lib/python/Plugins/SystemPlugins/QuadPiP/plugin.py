@@ -1,4 +1,3 @@
-from . import _, PLUGIN_NAME, PLUGIN_VERSION
 from Plugins.Plugin import PluginDescriptor
 from qpip import QuadPipScreen, setDecoderMode
 

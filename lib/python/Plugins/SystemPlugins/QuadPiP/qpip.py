@@ -1,4 +1,3 @@
-from . import _, PLUGIN_NAME, PLUGIN_VERSION
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.MessageBox import MessageBox
