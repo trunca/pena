@@ -127,6 +127,7 @@ void bsodFatal(const char *component)
 	FILE *f;
 	std::string crashlog_name;
 	std::ostringstream os;
+	std::ostringstream os_text;
 	os << "/media/hdd/enigma2_crash_";
 	os << time(0);
 	os << ".log";
@@ -219,7 +220,9 @@ void bsodFatal(const char *component)
 
 	os.str("");
 	os.clear();
-	os << "We are really sorry. Your STB encountered "
+	os_text.clear();
+
+	os_text << "We are really sorry. Your STB encountered "
 		"a software problem, and needs to be restarted.\n"
 		"Please send the logfile " << crashlog_name << " to " << crash_emailaddr << ".\n"
 		"Your receiver restarts in 10 seconds!\n"
