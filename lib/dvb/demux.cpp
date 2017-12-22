@@ -38,7 +38,6 @@ static int recordingBufferCount = determineBufferCount();
 #include "crc32.h"
 
 #include <lib/base/eerror.h>
-#include <lib/base/cfile.h>
 #include <lib/dvb/idvb.h>
 #include <lib/dvb/demux.h>
 #include <lib/dvb/esection.h>
