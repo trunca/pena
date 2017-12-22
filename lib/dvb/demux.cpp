@@ -102,6 +102,13 @@ RESULT eDVBDemux::setSourcePVR(int pvrnum)
 	if (fd < 0) return -1;
 	int n = DMX_SOURCE_DVR0 + pvrnum;
 	int res = ::ioctl(fd, DMX_SET_SOURCE, &n);
+	if (res && pvrnum)
+	{
+		eDebug("[eDVBDemux] DMX_SET_SOURCE dvr%d failed: %m falling back to dvr0", pvrnum);
+		pvrnum = 0;
+		n = m_dvr_source_offset + pvrnum;
+		res = ::ioctl(fd, DMX_SET_SOURCE, &n);
+	}
 	if (res)
 		eDebug("[eDVBDemux] DMX_SET_SOURCE dvr%d failed: %m", pvrnum);
 	source = -1;
