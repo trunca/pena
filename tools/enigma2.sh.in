@@ -47,10 +47,10 @@ if [ ! "$(grep config.misc.firstrun /etc/enigma2/settings)" == "config.misc.firs
 	rm -rf /etc/enigma2/key.pem &
 fi
 
-# update NTP time if NTP Time Enabled
-if [ "$(grep config.misc.SyncTimeUsing /etc/enigma2/settings)" == "config.misc.SyncTimeUsing=1" ]; then
-	/usr/sbin/ntpdate -s -u pool.ntp.org &
-fi
+## update NTP time if NTP Time Enabled
+#if [ "$(grep config.misc.SyncTimeUsing /etc/enigma2/settings)" == "config.misc.SyncTimeUsing=1" ]; then
+#	/usr/sbin/ntpdate -s -u pool.ntp.org &
+#fi
 
 # update permissions of autofs config files
 #if [ ! -f /etc/auto.network ] ; then
