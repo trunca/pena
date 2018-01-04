@@ -251,8 +251,6 @@ int main(int argc, char **argv)
 	printf("[enigma2] PYTHONPATH: %s\n", getenv("PYTHONPATH"));
 	printf("[enigma2] DVB_API_VERSION %d DVB_API_VERSION_MINOR %d\n", DVB_API_VERSION, DVB_API_VERSION_MINOR);
 
-	bsodLogInit();
-
 	ePython python;
 	eMain main;
 
@@ -312,17 +310,18 @@ int main(int argc, char **argv)
 			std::string rfilename;
 			snprintf(filename, sizeof(filename), "${datadir}/enigma2/%sskin_default/spinner/wait%d.png", active_skin.c_str(), i + 1);
 			rfilename = eEnv::resolve(filename);
-			loadPNG(wait[i], rfilename.c_str());
 
+			if (::access(rfilename.c_str(), R_OK) < 0)
+				break;
+
+			loadPNG(wait[i], rfilename.c_str());
 			if (!wait[i])
 			{
-				if (!i)
-					eDebug("[MAIN] failed to load %s: %m", rfilename.c_str());
-				else
-					eDebug("[MAIN] found %d spinner!", i);
+				eDebug("[MAIN] failed to load %s: %m", rfilename.c_str());
 				break;
 			}
 		}
+		eDebug("[MAIN] found %d spinner!", i);
 		if (i)
 			my_dc->setSpinner(eRect(ePoint(100, 100), wait[0]->size()), wait, i);
 		else
