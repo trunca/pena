@@ -1101,7 +1101,7 @@ int eDVBCISlot::getSlotID()
 
 int eDVBCISlot::reset()
 {
-	eDebug("[CI] Slot %d: reset requested", getSlotID());
+	eDebug("[CI] CI Slot %d: reset requested", getSlotID());
 
 	if (state == stateInvalid)
 	{
