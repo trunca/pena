@@ -132,10 +132,8 @@ private:
 	} stream_finish_mode_t;
 
 	DECLARE_REF(eDVBCIInterfaces);
-
 	stream_interface_t m_stream_interface;
 	stream_finish_mode_t m_stream_finish_mode;
-
 	static eDVBCIInterfaces *instance;
 	eSmartPtrList<eDVBCISlot> m_slots;
 	eDVBCISlot *getSlot(int slotid);
