@@ -1,4 +1,4 @@
-SUBDIRS = countries fonts extensions keymaps skin_default
+SUBDIRS = fonts extensions keymaps skin_default
 
 dist_pkgdata_DATA = \
 	encoding.conf \
