@@ -141,7 +141,6 @@ is usually caused by not marking PSignals as immutable.
 %enddef
 
 typedef long time_t;
-%include <enigma2_config.h>
 %include "typemaps.i"
 %include "std_string.i"
 %include <lib/python/swig.h>
