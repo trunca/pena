@@ -1,4 +1,4 @@
 installdir = $(pkgdatadir)
 
-dist_install_DATA = *.xml
+dist_install_DATA = startwizard.xml
 
